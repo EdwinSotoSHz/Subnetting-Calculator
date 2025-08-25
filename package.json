@@ -1,0 +1,25 @@
+{
+  "name": "subnetting-calculator",
+  "version": "1.0.0",
+  "description": "Calculadora de subnetting con soporte para FLSM y VLSM desarrollada en JavaScript.   Pensada como herramienta de apoyo para estudiantes en cálculos sencillos de separación de subredes.",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html --dist-dir dist --public-url ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-yo:EdwinSotoSHz/Subnetting-Calculator.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "os-browserify": "^0.3.0",
+    "parcel": "^2.15.4"
+  },
+  "dependencies": {
+    "ip": "^2.0.1"
+  }
+}

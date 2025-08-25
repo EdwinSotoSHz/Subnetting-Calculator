@@ -1,0 +1,14 @@
+# Node modules
+/node_modules/
+
+# Cache de Parcel
+/.parcel-cache/
+
+# Build output (si quieres subir solo src y build limpio, ignora dist y lo subes luego)
+# /dist/
+
+# Archivos de lock y logs que no son necesarios
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
