@@ -4,6 +4,7 @@ const inPrefix = document.getElementById('prefix');
 const inSubnetsNumber = document.getElementById('subnets-number');
 const btnCalc = document.getElementById('btn-calc');
 const divSubnettingResults = document.getElementById('subnetting-results');
+const checkBinaryOutput = document.getElementById('check-binary-output');
 /*
 - Obtener datos
 Click en botón
@@ -65,7 +66,7 @@ const printHTMLTable = function (headers, contents, HTMLcontainer, mask, hosts) 
     }
     HTMLcontainer.appendChild(table);
 };
-btnCalc.addEventListener('click', () => {
+const calculateAndShowSubnetting = function () {
     const networkId = (inIPAddress.value === "") ? null : inIPAddress.value;
     const basePrefix = (inPrefix.value === "") ? null : Number(inPrefix.value);
     const subnetsRequired = (inSubnetsNumber.value === "") ? null : Number(inSubnetsNumber.value);
@@ -87,9 +88,14 @@ btnCalc.addEventListener('click', () => {
         'Máscara',
         '# Hosts'
     ];
-    let binarySubnets = ip.getBinarySubnets(subnetsInfo[0], subnetsInfo[1]);
     // console.table(subnetsInfo);  
-    console.table(binarySubnets);
+    // console.table(binarySubnets);
+    if (checkBinaryOutput.checked) {
+        subnetsInfo = ip.getBinarySubnetsInfo(subnetsInfo);
+        subnetsMask = ip.ipv4ToBinary(subnetsMask);
+    }
     divSubnettingResults.replaceChildren();
     printHTMLTable(TABLE_HEADERS, subnetsInfo, divSubnettingResults, subnetsMask, hostsNumber);
-});
+};
+btnCalc.addEventListener('click', calculateAndShowSubnetting);
+checkBinaryOutput.addEventListener('change', calculateAndShowSubnetting);

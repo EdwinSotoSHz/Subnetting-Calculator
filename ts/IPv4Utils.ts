@@ -82,11 +82,11 @@ export class IPv4Utils {
         return FILLED_STRING_OCTETS;
     }
 
-    public static getBinarySubnets(networkIdArray: string[], broadcastArray: string[]): string[][]{
-        const ID_ARRAY: string[] = networkIdArray.map((subnetId) => IPv4Utils.ipv4ToBinary(subnetId));
-        const BR_ARRAY: string[] = broadcastArray.map((subnetBroadcast) => IPv4Utils.ipv4ToBinary(subnetBroadcast));
-
-        return [ID_ARRAY, BR_ARRAY]
+    public static getBinarySubnetsInfo(subnetsInfoArray: string [][]): string[][]{
+        let binarySubnetsInfo: string[][] = []; 
+        subnetsInfoArray.forEach((subnetInfo) => {
+            binarySubnetsInfo.push(subnetInfo.map((ip) => IPv4Utils.ipv4ToBinary(ip)))
+        });
+        return binarySubnetsInfo;
     } 
-
 }

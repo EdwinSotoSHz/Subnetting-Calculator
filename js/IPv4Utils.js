@@ -63,9 +63,11 @@ export class IPv4Utils {
         const FILLED_STRING_OCTETS = BINARY_OCTETS.map((octet) => octet.toString(2).padStart(8, "0")).join(".");
         return FILLED_STRING_OCTETS;
     }
-    static getBinarySubnets(networkIdArray, broadcastArray) {
-        const ID_ARRAY = networkIdArray.map((subnetId) => IPv4Utils.ipv4ToBinary(subnetId));
-        const BR_ARRAY = broadcastArray.map((subnetBroadcast) => IPv4Utils.ipv4ToBinary(subnetBroadcast));
-        return [ID_ARRAY, BR_ARRAY];
+    static getBinarySubnetsInfo(subnetsInfoArray) {
+        let binarySubnetsInfo = [];
+        subnetsInfoArray.forEach((subnetInfo) => {
+            binarySubnetsInfo.push(subnetInfo.map((ip) => IPv4Utils.ipv4ToBinary(ip)));
+        });
+        return binarySubnetsInfo;
     }
 }

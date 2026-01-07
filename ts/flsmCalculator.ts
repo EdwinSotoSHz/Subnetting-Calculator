@@ -5,6 +5,7 @@ const inPrefix = document.getElementById('prefix') as HTMLInputElement;
 const inSubnetsNumber = document.getElementById('subnets-number') as HTMLInputElement;
 const btnCalc = document.getElementById('btn-calc') as HTMLButtonElement;
 const divSubnettingResults = document.getElementById('subnetting-results') as HTMLDivElement;
+const checkBinaryOutput = document.getElementById('check-binary-output') as HTMLInputElement;
 
 /* 
 - Obtener datos 
@@ -78,7 +79,7 @@ const printHTMLTable = function(headers: string[], contents: any[][], HTMLcontai
     HTMLcontainer.appendChild(table);
 }
 
-btnCalc.addEventListener('click', ()=>{
+const calculateAndShowSubnetting = function(): void{
     const networkId: string | null = (inIPAddress.value === "") ? null : inIPAddress.value;
     const basePrefix: number | null = (inPrefix.value === "") ? null : Number(inPrefix.value);
     const subnetsRequired: number | null = (inSubnetsNumber.value === "") ? null : Number(inSubnetsNumber.value);
@@ -94,7 +95,7 @@ btnCalc.addEventListener('click', ()=>{
 
     let subnetsNumber: number = 2**bitsLentToNet;
 
-    let subnetsInfo: (string)[][] = getSubnetsInfo(networkId, newPrefix, subnetsNumber);
+    let subnetsInfo: string[][] = getSubnetsInfo(networkId, newPrefix, subnetsNumber);
     let subnetsMask: string = ip.prefixToMask(newPrefix);
     let hostsNumber: number = ip.getNumberOfHosts(newPrefix);
     const TABLE_HEADERS: string[] = [
@@ -105,13 +106,17 @@ btnCalc.addEventListener('click', ()=>{
         'Máscara',
         '# Hosts'
     ];
-
-    let binarySubnets: string[][] = ip.getBinarySubnets(subnetsInfo[0], subnetsInfo[1]);
     
     // console.table(subnetsInfo);  
-    console.table(binarySubnets);
+    // console.table(binarySubnets);
+
+    if(checkBinaryOutput.checked){
+        subnetsInfo = ip.getBinarySubnetsInfo(subnetsInfo);
+        subnetsMask = ip.ipv4ToBinary(subnetsMask);
+    }
 
     divSubnettingResults.replaceChildren();
+
     printHTMLTable(
         TABLE_HEADERS,
         subnetsInfo,
@@ -119,4 +124,7 @@ btnCalc.addEventListener('click', ()=>{
         subnetsMask,
         hostsNumber
     );
-})
+}
+
+btnCalc.addEventListener('click', calculateAndShowSubnetting);
+checkBinaryOutput.addEventListener('change', calculateAndShowSubnetting);
