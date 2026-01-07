@@ -17,10 +17,6 @@ Click en botón para cada uno
 - Funcion descargar Imagen
 - Funcion descargar CSV
 */
-let networkId: string | null = "";
-let basePrefix: number | null = null;
-let subnetsRequired: number | null = null;
-
 const calcBitsLentToNet = function(numSubnetsRequired: number): number{
     const n: number = Math.ceil(Math.log2(numSubnetsRequired));
     return n;
@@ -83,35 +79,44 @@ const printHTMLTable = function(headers: string[], contents: any[][], HTMLcontai
 }
 
 btnCalc.addEventListener('click', ()=>{
-    
-    
+    const networkId: string | null = (inIPAddress.value === "") ? null : inIPAddress.value;
+    const basePrefix: number | null = (inPrefix.value === "") ? null : Number(inPrefix.value);
+    const subnetsRequired: number | null = (inSubnetsNumber.value === "") ? null : Number(inSubnetsNumber.value);
 
-    networkId = (inIPAddress.value === "") ? null : inIPAddress.value;
-    basePrefix = (inPrefix.value === "") ? null : Number(inPrefix.value);
-    subnetsRequired = (inSubnetsNumber.value === "") ? null : Number(inSubnetsNumber.value);
+    if (subnetsRequired === null || basePrefix === null || networkId  === null) {
+        return;
+    }
     
-    // if(subnetsRequired)
-    //     console.log('n = ' + calcBitsLentToNet(subnetsRequired))
-
-    let bitsLentToNet: number = 0;
-    if(subnetsRequired)
-        bitsLentToNet = calcBitsLentToNet(subnetsRequired);
+    let bitsLentToNet: number = calcBitsLentToNet(subnetsRequired);
     
-    let newPrefix: number = 0;
-    if(basePrefix)
-        newPrefix = basePrefix + bitsLentToNet;
+    let newPrefix: number = basePrefix + bitsLentToNet;
     // console.log(newPrefix)
 
     let subnetsNumber: number = 2**bitsLentToNet;
 
-    let subnetsInfo: (string)[][] = [];
-    if(networkId)
-        subnetsInfo = getSubnetsInfo(networkId, newPrefix, subnetsNumber);
+    let subnetsInfo: (string)[][] = getSubnetsInfo(networkId, newPrefix, subnetsNumber);
+    let subnetsMask: string = ip.prefixToMask(newPrefix);
+    let hostsNumber: number = ip.getNumberOfHosts(newPrefix);
+    const TABLE_HEADERS: string[] = [
+        'ID de Red',
+        'Broadcast',
+        'Primera IP utilizable',
+        'Última IP utilizable',
+        'Máscara',
+        '# Hosts'
+    ];
+
+    let binarySubnets: string[][] = ip.getBinarySubnets(subnetsInfo[0], subnetsInfo[1]);
     
     // console.table(subnetsInfo);  
-    console.table(ip.getBinarySubnets(subnetsInfo[0], subnetsInfo[1]));
-    divSubnettingResults.replaceChildren();
-    let tableHeaders = ['ID de Red','Broadcast','Primera ip utilizable','Última ip utilizable','Máscara','# Hosts'];
-    printHTMLTable(tableHeaders, subnetsInfo, divSubnettingResults, ip.prefixToMask(newPrefix), ip.getNumberOfHosts(newPrefix));
+    console.table(binarySubnets);
 
+    divSubnettingResults.replaceChildren();
+    printHTMLTable(
+        TABLE_HEADERS,
+        subnetsInfo,
+        divSubnettingResults,
+        subnetsMask,
+        hostsNumber
+    );
 })

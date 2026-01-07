@@ -3,90 +3,90 @@ export class IPv4Utils {
 
     //Convertir los 4 numeros de la cadena a numeros de 32 bits (realmente solo ocupan 8 o menos), y recorrerlos 8 bits para llenar los 32 bits (numero entero que represente la ip)  
     public static ipv4ToUint32(ipAddress: string): number{
-        const uint32 = ipAddress
+        const UINT32 = ipAddress
                     .split(".")
                     .reduce((acc, octet) => (acc << 8) + Number(octet), 0)  >>> 0;
 
-        return uint32;
+        return UINT32;
     }
 
     //Aislar cada uno de los 8 bits de un numero de 32 bits y garantizar que los primeros 3 octetos solo incluyan máximo 8 bits 
     public static  Uint32Toipv4(uint32: number): string {
-        const ipv4 = [
+        const IPV4 = [
             (uint32 >>> 24) & 255,
             (uint32 >>> 16) & 255,
             (uint32 >>> 8) & 255,
             uint32 & 255
         ].join(".");
         
-        return ipv4;
+        return IPV4;
     }
 
     // Si el prefijo es cero se queda como 0, pero si no se usa un numero de 32 bits (todos 1 con 0xFFFFFFFF) y se recorre a la izquierda los bits de host que se ocupen y se quita el signo
     public static prefixToMask(prefix: number): string {
-        const maskUint32 = (prefix === 0) ? 0 : (0xFFFFFFFF << (32 - prefix)) >>> 0;
-        return IPv4Utils.Uint32Toipv4(maskUint32);
+        const MASK_UINT32 = (prefix === 0) ? 0 : (0xFFFFFFFF << (32 - prefix)) >>> 0;
+        return IPv4Utils.Uint32Toipv4(MASK_UINT32);
     }
 
     // OR binario entre dos Uint32, negando todos los bits de la máscara, pero quitando el signo "-", obtiene broadcast
     public static getBroadcastAddress(networkId: string, mask: string): string {
-        const subNetworkId = IPv4Utils.ipv4ToUint32(networkId);
-        const subNetworkMask  = IPv4Utils.ipv4ToUint32(mask);
+        const SUB_NETWORK_ID = IPv4Utils.ipv4ToUint32(networkId);
+        const SUB_NETWORK_MASK  = IPv4Utils.ipv4ToUint32(mask);
 
-        const broadcastAddress = subNetworkId | (~subNetworkMask >>> 0);
+        const BROADCAST_ADDRESS = SUB_NETWORK_ID | (~SUB_NETWORK_MASK >>> 0);
 
-        return IPv4Utils.Uint32Toipv4(broadcastAddress);
+        return IPv4Utils.Uint32Toipv4(BROADCAST_ADDRESS);
     }
 
     // AND binario para obtener ID de red (no usado en este proyecto)
     public static getNetworkIdAddress(ip: string, mask:string):string {
-        const ipInt   = IPv4Utils.ipv4ToUint32(ip);
-        const maskInt = IPv4Utils.ipv4ToUint32(mask);
+        const IP_UINT32   = IPv4Utils.ipv4ToUint32(ip);
+        const MASK_UINT32 = IPv4Utils.ipv4ToUint32(mask);
 
-        const networkId = ipInt & maskInt;
+        const NETWORK_ID = IP_UINT32 & MASK_UINT32;
 
-        return IPv4Utils.Uint32Toipv4(networkId);
+        return IPv4Utils.Uint32Toipv4(NETWORK_ID);
     }
 
     // Siguiente IP
     public static nextIp(ipAddress: string): string {
-        const uint32 = IPv4Utils.ipv4ToUint32(ipAddress);
-        return IPv4Utils.Uint32Toipv4(uint32 + 1);
+        const UINT32 = IPv4Utils.ipv4ToUint32(ipAddress);
+        return IPv4Utils.Uint32Toipv4(UINT32 + 1);
     }
 
     // IP anterior
     public static prevIp(ipAddress: string): string {
-        const uint32 = IPv4Utils.ipv4ToUint32(ipAddress);
-        return IPv4Utils.Uint32Toipv4(uint32 - 1);
+        const UINT32 = IPv4Utils.ipv4ToUint32(ipAddress);
+        return IPv4Utils.Uint32Toipv4(UINT32 - 1);
     }
 
     // Formula estandar de subnetting
     public static getNumberOfHosts(prefix: number): number{
-        const hosts = 2**(32 - prefix) - 2;
-        return hosts;
+        const HOSTS = 2**(32 - prefix) - 2;
+        return HOSTS;
     }
 
     // Desplazamiento (>>>) mueve los bits, y el AND binario con 255 (0xFF) aísla el octeto.
     public static ipv4ToBinary(ipAddress: string): string {
-        const uint32 = IPv4Utils.ipv4ToUint32(ipAddress);
+        const UINT32 = IPv4Utils.ipv4ToUint32(ipAddress);
 
-        const binaryOctets: number[] = [
-            (uint32 >>> 24) & 255,
-            (uint32 >>> 16) & 255,
-            (uint32 >>> 8) & 255,
-            uint32 & 255
+        const BINARY_OCTETS: number[] = [
+            (UINT32 >>> 24) & 255,
+            (UINT32 >>> 16) & 255,
+            (UINT32 >>> 8) & 255,
+            UINT32 & 255
         ];
         
-        const filledStringOctets: string = binaryOctets.map((octet) => octet.toString(2).padStart(8, "0")).join(".");
+        const FILLED_STRING_OCTETS: string = BINARY_OCTETS.map((octet) => octet.toString(2).padStart(8, "0")).join(".");
 
-        return filledStringOctets;
+        return FILLED_STRING_OCTETS;
     }
 
     public static getBinarySubnets(networkIdArray: string[], broadcastArray: string[]): string[][]{
-        const idArray: string[] = networkIdArray.map((subnetId) => IPv4Utils.ipv4ToBinary(subnetId));
-        const brArray: string[] = broadcastArray.map((subnetBroadcast) => IPv4Utils.ipv4ToBinary(subnetBroadcast));
+        const ID_ARRAY: string[] = networkIdArray.map((subnetId) => IPv4Utils.ipv4ToBinary(subnetId));
+        const BR_ARRAY: string[] = broadcastArray.map((subnetBroadcast) => IPv4Utils.ipv4ToBinary(subnetBroadcast));
 
-        return [idArray, brArray]
+        return [ID_ARRAY, BR_ARRAY]
     } 
 
 }
