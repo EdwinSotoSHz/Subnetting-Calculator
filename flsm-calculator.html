@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <title>Parcel + IP</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>flsm-calculator</h1>
+
+    <div class="container">
+        <table border="1">
+            <tr>
+                <th>Dirección IP /Prefijo</th>
+                <th>Número de subredes</th>
+                <td rowspan="2">
+                    <button id="btn-calc">Calcular</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <input type="text" id="ip-address" value="192.168.1.0">
+                    /
+                    <input type="number" id="prefix" value="24">
+                </td>
+                <td>
+                    <input type="number" id="subnets-number" value="6">
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="half-of-container">
+        Subnetting basado en el número de subredes (FLSM)... 
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum ab aspernatur harum sunt similique possimus asperiores officia minus quisquam laborum, reprehenderit ipsa, aliquam at dignissimos aperiam? Maxime quidem alias rerum.
+    </div>
+
+    <div class="half-of-container">
+
+    </div>
+
+    <div class="container" id="subnetting-results">        
+    </div>
+
+    <script type="module" src="js/flsmCalculator.js"></script>
+</body>
+</html>
