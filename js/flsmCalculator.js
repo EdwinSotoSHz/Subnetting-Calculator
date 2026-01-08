@@ -6,11 +6,11 @@ const btnCalc = document.getElementById('btn-calc');
 const divSubnettingResults = document.getElementById('subnetting-results');
 const checkBinaryOutput = document.getElementById('check-binary-output');
 /*
-- Obtener datos
-Click en botón
-- Generar arreglo de informacion
-- Imprimir tabla
-
+!- Obtener datos
+!Click en botón
+!- Generar arreglo de informacion
+!- Imprimir tabla
+!
 Click en botón para cada uno
 - Funcion Extra para copiar
 - Funcion descargar Imagen

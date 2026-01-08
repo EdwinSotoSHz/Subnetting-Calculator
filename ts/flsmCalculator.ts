@@ -7,12 +7,12 @@ const btnCalc = document.getElementById('btn-calc') as HTMLButtonElement;
 const divSubnettingResults = document.getElementById('subnetting-results') as HTMLDivElement;
 const checkBinaryOutput = document.getElementById('check-binary-output') as HTMLInputElement;
 
-/* 
-- Obtener datos 
-Click en botón
-- Generar arreglo de informacion
-- Imprimir tabla
-
+/*
+!- Obtener datos 
+!Click en botón
+!- Generar arreglo de informacion
+!- Imprimir tabla
+!
 Click en botón para cada uno
 - Funcion Extra para copiar
 - Funcion descargar Imagen

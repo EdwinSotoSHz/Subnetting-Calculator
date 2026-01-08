@@ -1,0 +1,419 @@
+:root {
+    --cisco-green: #6cbd44;
+    --cisco-blue: #00bceb;
+    --cisco-dark-grey: #333333;
+    --cisco-light-grey: #f4f4f4;
+    --cisco-header-bg: #f9fafb;
+    --border-color: #e0e0e0;
+    --text-color: #333;
+    --success-color: #4CAF50;
+    --warning-color: #ff9800;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    color: var(--text-color);
+    background-color: transparent;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#techCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at top right, #f5f9fc 0%, #ffffff 100%);
+}
+
+/* --- Header con tono grisáceo --- */
+header {
+    padding: 15px 40px;
+    border-bottom: 1px solid var(--border-color);
+    background: var(--cisco-header-bg);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    flex-shrink: 0;
+}
+
+h1 {
+    font-weight: 600;
+    font-size: 24px;
+    color: #444;
+    display: flex;
+    align-items: center;
+    margin: 0;
+}
+
+h1::before {
+    content: "🔧";
+    margin-right: 12px;
+    font-size: 20px;
+}
+
+/* --- Contenedor Principal con menos separación --- */
+.container {
+    padding: 15px 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+    flex: 1 0 auto;
+}
+
+.container + .container {
+    margin-top: 10px;
+}
+
+/* --- Tabla de Configuración con menos padding --- */
+.config-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.config-table th {
+    background-color: var(--cisco-blue);
+    color: white;
+    text-align: left;
+    padding: 12px 15px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.config-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+.config-table tr:nth-child(even) {
+    background-color: var(--cisco-light-grey);
+}
+
+.config-table tr:hover {
+    background-color: #f8fcff;
+}
+
+/* --- Inputs --- */
+input[type="text"],
+input[type="number"] {
+    padding: 8px 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: all 0.2s;
+    background-color: white;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+    outline: none;
+    border-color: var(--cisco-blue);
+    box-shadow: 0 0 0 2px rgba(0, 188, 235, 0.15);
+}
+
+/* --- Botones NetAcad --- */
+.btn-netacad {
+    background-color: var(--cisco-green);
+    color: #000000;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: all 0.2s;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-netacad:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.08);
+    box-shadow: 0 3px 6px rgba(108, 189, 68, 0.25);
+}
+
+/* --- Caja de Descripción --- */
+.description-box {
+    background-color: white;
+    border-radius: 6px;
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    border: 1px solid var(--border-color);
+    line-height: 1.5;
+}
+
+.description-box p {
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.description-box strong {
+    color: var(--cisco-blue);
+}
+
+/* --- Contenedor para tabla de resultados con scroll horizontal --- */
+.results-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.04);
+    min-height: 100px;
+}
+
+/* --- Mensaje cuando no hay resultados --- */
+.results-container:empty::before {
+    content: "Haz clic en 'Calcular' para ver los resultados del subnetting";
+    display: block;
+    text-align: center;
+    padding: 40px 20px;
+    color: #888;
+    font-style: italic;
+    font-size: 14px;
+}
+
+/* --- Tabla de Resultados (Generada por JS) con menos padding --- */
+.subnetting-table {
+    width: 100%;
+    min-width: 800px;
+    border-collapse: collapse;
+    background: white;
+    font-size: 13px;
+}
+
+.subnetting-table th {
+    background-color: var(--cisco-blue);
+    color: white;
+    text-align: left;
+    padding: 12px 15px;
+    font-weight: 600;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    white-space: nowrap;
+}
+
+.subnetting-table th:last-child {
+    border-right: none;
+}
+
+.subnetting-table td {
+    padding: 10px 15px;
+    border-bottom: 1px solid var(--border-color);
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.subnetting-table tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+.subnetting-table tbody tr:hover {
+    background-color: #f8fcff;
+}
+
+/* --- Personalización de scrollbars --- */
+.results-container::-webkit-scrollbar {
+    height: 8px;
+    background-color: #f5f5f5;
+    border-radius: 0 0 6px 6px;
+}
+
+.results-container::-webkit-scrollbar-thumb {
+    background-color: #c1c1c1;
+    border-radius: 4px;
+    border: 2px solid #f5f5f5;
+}
+
+.results-container::-webkit-scrollbar-thumb:hover {
+    background-color: #a8a8a8;
+}
+
+.results-container::-webkit-scrollbar-track {
+    background-color: #f5f5f5;
+    border-radius: 0 0 6px 6px;
+}
+
+/* Para Firefox */
+.results-container {
+    scrollbar-width: thin;
+    scrollbar-color: #c1c1c1 #f5f5f5;
+}
+
+/* --- Footer pegado al fondo --- */
+footer {
+    background-color: var(--cisco-dark-grey);
+    color: #ddd;
+    padding: 25px 40px;
+    font-size: 13px;
+    flex-shrink: 0;
+    margin-top: auto;
+    width: 100%;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: var(--cisco-blue);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+    font-size: 13px;
+}
+
+.footer-links a:hover {
+    color: white;
+    text-decoration: underline;
+}
+
+footer p {
+    margin: 6px 0;
+    color: #aaa;
+    line-height: 1.4;
+}
+
+footer p i {
+    margin-right: 6px;
+    color: var(--cisco-green);
+    font-size: 12px;
+}
+
+/* --- Responsive --- */
+@media (max-width: 768px) {
+    .container, header {
+        padding: 12px 20px;
+    }
+    
+    h1 {
+        font-size: 20px;
+    }
+    
+    .config-table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .btn-netacad {
+        padding: 7px 16px;
+        font-size: 12px;
+    }
+    
+    .results-container::-webkit-scrollbar {
+        height: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px 15px;
+    }
+    
+    .container {
+        padding: 10px 15px;
+    }
+    
+    h1 {
+        font-size: 18px;
+    }
+    
+    h1::before {
+        font-size: 16px;
+        margin-right: 8px;
+    }
+    
+    footer {
+        padding: 20px 15px;
+    }
+}
+
+/* --- Estilos para Checkbox --- */
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--cisco-green);
+}
+
+label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+/* --- Mejora para h3 --- */
+h3 {
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #555;
+}
+
+/* --- Botón VLSM en esquina --- */
+body > a {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    z-index: 1000;
+    text-decoration: none;
+}
+
+body > a button {
+    background-color: var(--cisco-blue);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 13px;
+    transition: all 0.2s;
+}
+
+body > a button:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.1);
+    box-shadow: 0 3px 6px rgba(0, 188, 235, 0.25);
+}
