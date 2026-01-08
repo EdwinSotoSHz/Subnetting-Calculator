@@ -75,10 +75,6 @@ h1::before {
     flex: 1 0 auto;
 }
 
-.container + .container {
-    margin-top: 10px;
-}
-
 /* --- Tabla de Configuración con menos padding --- */
 .config-table {
     width: 100%;
@@ -159,7 +155,6 @@ input[type="number"]:focus {
     background-color: white;
     border-radius: 6px;
     padding: 16px 20px;
-    margin-bottom: 20px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.04);
     border: 1px solid var(--border-color);
     line-height: 1.5;
@@ -267,7 +262,7 @@ input[type="number"]:focus {
 footer {
     background-color: var(--cisco-dark-grey);
     color: #ddd;
-    padding: 25px 40px;
+    padding: 10px 40px;
     font-size: 13px;
     flex-shrink: 0;
     margin-top: auto;
