@@ -18,6 +18,7 @@
 
 html, body {
     height: 100%;
+    font-size: 1.1rem;
 }
 
 body {
@@ -69,7 +70,7 @@ h1::before {
 /* --- Contenedor Principal con menos separación --- */
 .container {
     padding: 15px 40px;
-    max-width: 1200px;
+    max-width: 90%;
     margin: 0 auto;
     width: 100%;
     flex: 1 0 auto;
@@ -111,8 +112,7 @@ h1::before {
 }
 
 /* --- Inputs --- */
-input[type="text"],
-input[type="number"] {
+.input-subnetting {
     padding: 8px 10px;
     border: 1px solid #d1d5db;
     border-radius: 4px;
@@ -121,8 +121,7 @@ input[type="number"] {
     background-color: white;
 }
 
-input[type="text"]:focus,
-input[type="number"]:focus {
+.input-subnetting:focus {
     outline: none;
     border-color: var(--cisco-blue);
     box-shadow: 0 0 0 2px rgba(0, 188, 235, 0.15);
@@ -412,3 +411,27 @@ body > a button:hover {
     filter: brightness(1.1);
     box-shadow: 0 3px 6px rgba(0, 188, 235, 0.25);
 }
+
+/* Estilos para los inputs de nombres de subredes - estilo minimalista */
+.subnet-name-input {
+    width: 100px;
+    padding: 0px 0;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    border-radius: 0;
+    font-size: 14px;
+    color: #333;
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.subnet-name-input:focus {
+    border-bottom: 2px solid #0066cc;
+}
+
+.subnet-name-input::placeholder {
+    color: #888;
+    opacity: 0.8;
+}
+

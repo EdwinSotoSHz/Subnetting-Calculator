@@ -6,6 +6,7 @@ const inSubnetsNumber = document.getElementById('subnets-number') as HTMLInputEl
 const btnCalc = document.getElementById('btn-calc') as HTMLButtonElement;
 const divSubnettingResults = document.getElementById('subnetting-results') as HTMLDivElement;
 const checkBinaryOutput = document.getElementById('check-binary-output') as HTMLInputElement;
+const checkSubnetName = document.getElementById('check-subnet-name') as HTMLInputElement;
 
 /*
 !- Obtener datos 
@@ -41,7 +42,7 @@ const getSubnetsInfo = function(networkId: string, prefix: number, subnetsNumber
     return subnetsInfo;
 }
 
-const printHTMLTable = function(headers: string[], contents: any[][], HTMLcontainer: HTMLDivElement, mask: string, hosts: number): void {
+const printHTMLTable = function(headers: string[], contents: any[][], HTMLcontainer: HTMLDivElement, mask: string, hosts: number, includeNames: boolean = false): void {
     let table = document.createElement('table');
     table.classList.add('subnetting-table');
 
@@ -57,6 +58,17 @@ const printHTMLTable = function(headers: string[], contents: any[][], HTMLcontai
 
     for (let row = 0; row < rowsNum; row++) {
         let tr = table.insertRow();
+
+        // Para inputs
+        if (includeNames) {
+            let tdName = document.createElement('td');
+            let inputName = document.createElement('input');
+            inputName.type = 'text';
+            inputName.className = 'subnet-name-input';
+            inputName.placeholder = `Subred ${row + 1}`;
+            tdName.appendChild(inputName);
+            tr.appendChild(tdName);
+        }
 
         for (let col = 0; col < colsNum; col++) {
             let td = document.createElement('td');
@@ -106,7 +118,11 @@ const calculateAndShowSubnetting = function(): void{
         'Máscara',
         '# Hosts'
     ];
-    
+
+    let includeNames: boolean = checkSubnetName.checked;
+    if(includeNames)
+        TABLE_HEADERS.unshift('Nombre');
+
     // console.table(subnetsInfo);  
     // console.table(binarySubnets);
 
@@ -122,9 +138,11 @@ const calculateAndShowSubnetting = function(): void{
         subnetsInfo,
         divSubnettingResults,
         subnetsMask,
-        hostsNumber
+        hostsNumber,
+        includeNames
     );
 }
 
 btnCalc.addEventListener('click', calculateAndShowSubnetting);
 checkBinaryOutput.addEventListener('change', calculateAndShowSubnetting);
+checkSubnetName.addEventListener('change', calculateAndShowSubnetting);

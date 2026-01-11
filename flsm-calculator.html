@@ -30,23 +30,29 @@
                 <th>Dirección IP / Prefijo</th>
                 <th>Número de subredes</th>
                 <td rowspan="2">
-                    <button id="btn-calc" class="btn-netacad">Calcular</button>
+                    <button id="btn-calc" class="btn-netacad" tabindex="4">Calcular</button>
                 </td>
                 <td rowspan="2">
                     <label style="display: flex; align-items: center; gap: 8px;">
-                        <input type="checkbox" id="check-binary-output" value="false"/>
+                        <input type="checkbox" id="check-binary-output" value="false" tabindex="5"/>
                         Salida Binaria
+                    </label>
+                </td>
+                <td rowspan="2">
+                    <label style="display: flex; align-items: center; gap: 8px;">
+                        <input type="checkbox" id="check-subnet-name" value="false" tabindex="6"/>
+                        Nombre de subredes
                     </label>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <input type="text" id="ip-address" value="192.168.1.0">
+                    <input class="input-subnetting" type="text" id="ip-address" value="192.168.1.0" tabindex="1">
                     /
-                    <input type="number" id="prefix" value="24" style="width: 60px;">
+                    <input class="input-subnetting" type="number" id="prefix" value="24" style="width: 60px;" tabindex="2">
                 </td>
                 <td>
-                    <input type="number" id="subnets-number" value="6" style="width: 100px;">
+                    <input class="input-subnetting" type="number" id="subnets-number" value="6" style="width: 100px;" tabindex="3">
                 </td>
             </tr>
         </table>
@@ -70,7 +76,7 @@
         <div class="footer-content">
             <div class="footer-links">
                 <p><i class="fas fa-calculator"></i> Calculadora de Subnetting FLSM</p>
-                <a href="https://github.com/EdwinSotoSHz/Calculadora-de-Distribucion-de-Frecuencias.git" target="_blank">
+                <a href="https://github.com/EdwinSotoSHz/Subnetting-Calculator.git" target="_blank">
                     <i class="fas fa-code"></i> Código Fuente
                 </a>
             </div>

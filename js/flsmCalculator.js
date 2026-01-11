@@ -5,6 +5,7 @@ const inSubnetsNumber = document.getElementById('subnets-number');
 const btnCalc = document.getElementById('btn-calc');
 const divSubnettingResults = document.getElementById('subnetting-results');
 const checkBinaryOutput = document.getElementById('check-binary-output');
+const checkSubnetName = document.getElementById('check-subnet-name');
 /*
 !- Obtener datos
 !Click en botón
@@ -35,7 +36,7 @@ const getSubnetsInfo = function (networkId, prefix, subnetsNumber) {
     }
     return subnetsInfo;
 };
-const printHTMLTable = function (headers, contents, HTMLcontainer, mask, hosts) {
+const printHTMLTable = function (headers, contents, HTMLcontainer, mask, hosts, includeNames = false) {
     let table = document.createElement('table');
     table.classList.add('subnetting-table');
     let headerRow = table.insertRow();
@@ -48,6 +49,16 @@ const printHTMLTable = function (headers, contents, HTMLcontainer, mask, hosts) 
     let colsNum = contents[0].length; // ahora las columnas
     for (let row = 0; row < rowsNum; row++) {
         let tr = table.insertRow();
+        // Para inputs
+        if (includeNames) {
+            let tdName = document.createElement('td');
+            let inputName = document.createElement('input');
+            inputName.type = 'text';
+            inputName.className = 'subnet-name-input';
+            inputName.placeholder = `Subred ${row + 1}`;
+            tdName.appendChild(inputName);
+            tr.appendChild(tdName);
+        }
         for (let col = 0; col < colsNum; col++) {
             let td = document.createElement('td');
             td.textContent = contents[row][col];
@@ -88,6 +99,9 @@ const calculateAndShowSubnetting = function () {
         'Máscara',
         '# Hosts'
     ];
+    let includeNames = checkSubnetName.checked;
+    if (includeNames)
+        TABLE_HEADERS.unshift('Nombre');
     // console.table(subnetsInfo);  
     // console.table(binarySubnets);
     if (checkBinaryOutput.checked) {
@@ -95,7 +109,8 @@ const calculateAndShowSubnetting = function () {
         subnetsMask = ip.ipv4ToBinary(subnetsMask);
     }
     divSubnettingResults.replaceChildren();
-    printHTMLTable(TABLE_HEADERS, subnetsInfo, divSubnettingResults, subnetsMask, hostsNumber);
+    printHTMLTable(TABLE_HEADERS, subnetsInfo, divSubnettingResults, subnetsMask, hostsNumber, includeNames);
 };
 btnCalc.addEventListener('click', calculateAndShowSubnetting);
 checkBinaryOutput.addEventListener('change', calculateAndShowSubnetting);
+checkSubnetName.addEventListener('change', calculateAndShowSubnetting);
