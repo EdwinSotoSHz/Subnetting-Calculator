@@ -30,9 +30,9 @@ const calculateAndShowSubnetting = function () {
         return;
     }
     let bitsLentToNet = calcBitsLentToNet(subnetsHostRequired, basePrefix);
-    console.log(bitsLentToNet);
-    //let newPrefix: number = basePrefix + bitsLentToNet;
-    // console.log(newPrefix)
+    //console.log(bitsLentToNet)
+    let newPrefixes = bitsLentToNet.map((bits) => basePrefix + bits);
+    console.log(newPrefixes);
     //let subnetsNumber: number = 2**bitsLentToNet;
     //let subnetsInfo: string[][] = getSubnetsInfo(networkId, newPrefix, subnetsNumber);
     //let subnetsMask: string = ip.prefixToMask(newPrefix);

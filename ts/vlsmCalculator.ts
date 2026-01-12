@@ -38,11 +38,10 @@ const calculateAndShowSubnetting = function(): void{
         return;
     }
 
-    
     let bitsLentToNet: number[] = calcBitsLentToNet(subnetsHostRequired, basePrefix);
-    console.log(bitsLentToNet)
-    //let newPrefix: number = basePrefix + bitsLentToNet;
-    // console.log(newPrefix)
+    //console.log(bitsLentToNet)
+    let newPrefixes: number[] = bitsLentToNet.map((bits)=> basePrefix + bits);
+    console.log(newPrefixes)
 
     //let subnetsNumber: number = 2**bitsLentToNet;
 
