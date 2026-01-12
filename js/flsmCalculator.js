@@ -103,7 +103,6 @@ const calculateAndShowSubnetting = function () {
     if (includeNames)
         TABLE_HEADERS.unshift('Nombre');
     // console.table(subnetsInfo);  
-    // console.table(binarySubnets);
     if (checkBinaryOutput.checked) {
         subnetsInfo = ip.getBinarySubnetsInfo(subnetsInfo);
         subnetsMask = ip.ipv4ToBinary(subnetsMask);

@@ -65,8 +65,13 @@ export class IPv4Utils {
     }
     static getBinarySubnetsInfo(subnetsInfoArray) {
         let binarySubnetsInfo = [];
+        const regexIPv4 = /^(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)(\.(25[0-5]|2[0-4]\d|1\d{2}|[1-9]?\d)){3}$/;
         subnetsInfoArray.forEach((subnetInfo) => {
-            binarySubnetsInfo.push(subnetInfo.map((ip) => IPv4Utils.ipv4ToBinary(ip)));
+            binarySubnetsInfo.push(subnetInfo.map((value) => {
+                if (regexIPv4.test(value))
+                    return IPv4Utils.ipv4ToBinary(value);
+                return value;
+            }));
         });
         return binarySubnetsInfo;
     }
