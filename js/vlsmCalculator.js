@@ -74,11 +74,14 @@ const calculateAndShowSubnetting = function () {
         subnetsHostRequired = null;
     }
     else {
-        subnetsHostRequired = inSubnetHosts.value.trim()
+        subnetsHostRequired = inSubnetHosts.value.trim().replace(/[^0-9,]/g, "")
             .split(",")
-            .map(host => Number(host))
+            .filter(x => x !== "")
+            .map(host => Math.trunc(Number(host)))
             .sort((a, b) => b - a);
+        inSubnetHosts.value = subnetsHostRequired.join(",");
     }
+    console.log(subnetsHostRequired);
     if (subnetsHostRequired === null || basePrefix === null || networkId === null) {
         return;
     }

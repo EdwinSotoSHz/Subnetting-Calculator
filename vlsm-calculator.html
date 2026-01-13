@@ -1,20 +1,37 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <title>Parcel + IP</title>
-    <link rel="stylesheet" href="src-web/css/style.css">
+     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Subnetting (VLSM)</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
 </head>
 <body>
-    <h1>vlsm-calculator</h1>
+    <a href="flsm-calculator.html" style="position: absolute; right: 1%; top: 2%; z-index: 1000;"> 
+        <button class="btn-netacad">FLSM Calculator</button>
+    </a>
 
-     <div class="container">
-        <table border="1">
+    <canvas id="techCanvas"></canvas>
+    
+    <header>
+        <h1>VLSM Calculator</h1>
+    </header>
+
+    <div class="container">
+        <h3 style="color: #666;">Configuración de Subnetting (VLSM)</h3>
+        <table class="config-table">
             <tr>
-                <th>Dirección IP /Prefijo</th>
-                <th>Hosts de subredes <br> (separados por comas ",")</th>
+                <th>Dirección IP / Prefijo</th>
+                <th>Hosts por subred <br><small>(separados por comas ",")</small></th>
                 <td rowspan="2">
-                    <button id="btn-calc">Calcular</button>
+                    <button id="btn-calc" class="btn-netacad" tabindex="4">Calcular</button>
                 </td>
                 <td rowspan="2">
                     <label style="display: flex; align-items: center; gap: 8px;">
@@ -30,30 +47,70 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="1">
-                    <input type="text" id="ip-address" value="192.168.0.0">
+                <td>
+                    <input class="input-subnetting" type="text" id="ip-address" value="192.168.0.0" tabindex="1">
                     /
-                    <input type="number" id="prefix" value="24">
+                    <input class="input-subnetting" type="number" id="prefix" value="24" style="width: 60px;" tabindex="2">
                 </td>
                 <td>
-                    <input id="subnet-hosts" value="60,50,36,20,2">
+                    <input class="input-subnetting" type="text" id="subnet-hosts" value="60,50,36,20,2" placeholder="Ej: 60,50,36,20,2" tabindex="3">
                 </td>
             </tr>
         </table>
     </div>
 
-    <div class="half-of-container">
-        Subnetting basado en el número de subredes (VLSM)... 
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum ab aspernatur harum sunt similique possimus asperiores officia minus quisquam laborum, reprehenderit ipsa, aliquam at dignissimos aperiam? Maxime quidem alias rerum.
+    <div class="container">
+        <h3 style="color: #666;">Información VLSM</h3>
+        <div class="description-box">
+            <p><strong>VLSM (Variable Length Subnet Mask)</strong> - Subnetting de longitud variable. Cada subred tiene una máscara diferente según el número de hosts requeridos.</p>
+            <p>Esta calculadora optimiza el espacio IP asignando prefijos diferentes a cada subred según sus necesidades específicas de hosts.</p>
+            <p><i class="fas fa-lightbulb" style="color: var(--cisco-blue);"></i> <strong>Consejo:</strong> Los hosts se ordenan automáticamente de mayor a menor para una asignación óptima.</p>
+        </div>
     </div>
 
-    <div class="half-of-container">
-
+    <div class="container">
+        <div class="results-container" id="subnetting-results">        
+            <!-- Aquí se generará la tabla dinámicamente -->
+        </div>
     </div>
 
-    <div class="container" id="subnetting-results">        
-    </div>
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <p><i class="fas fa-calculator"></i> Calculadora de Subnetting VLSM</p>
+                <a href="https://github.com/EdwinSotoSHz/Subnetting-Calculator.git" target="_blank">
+                    <i class="fas fa-code"></i> Código Fuente
+                </a>
+            </div>
+            <p>© 2026 Desarrollado por 
+                <a href="https://github.com/EdwinSotoSHz" target="_blank" style="color: #aaa; text-decoration: none;">
+                    Edwin Soto <i class="fab fa-github"></i> 
+                </a>
+            | Calculadora Subnetting con máscara de subred de longitud variable
+            </p>
+        </div>
+    </footer>
 
     <script type="module" src="js/vlsmCalculator.js"></script>
+    <script type="module" src="js/backgroud.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const btnCalc = document.getElementById('btn-calc');
+            const resultsContainer = document.getElementById('subnetting-results');
+            
+            btnCalc.addEventListener('click', function() {
+                // Esperar un momento para que se genere la tabla
+                setTimeout(() => {
+                    if (resultsContainer.innerHTML.trim() !== '') {
+                        // Scroll suave a los resultados
+                        resultsContainer.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'start' 
+                        });
+                    }
+                }, 100);
+            });
+        });
+    </script>
 </body>
 </html>

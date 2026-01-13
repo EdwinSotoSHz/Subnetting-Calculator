@@ -90,11 +90,16 @@ const calculateAndShowSubnetting = function(): void{
     if (inSubnetHosts.value.trim() === "") {
         subnetsHostRequired = null;
     } else {
-        subnetsHostRequired = inSubnetHosts.value.trim()
-            .split(",")                
-            .map(host => Number(host)) 
+        subnetsHostRequired = inSubnetHosts.value.trim().replace(/[^0-9,]/g, "")
+            .split(",")
+            .filter(x => x !== "")           
+            .map(host => Math.trunc(Number(host)))
             .sort((a, b) => b - a);
+
+            inSubnetHosts.value = subnetsHostRequired.join(",");
     }
+    
+    console.log(subnetsHostRequired)
 
 
     if (subnetsHostRequired === null || basePrefix === null || networkId  === null) {

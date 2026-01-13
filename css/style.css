@@ -62,9 +62,9 @@ h1 {
 }
 
 h1::before {
-    content: "🔧";
+    content: "🌐";
     margin-right: 12px;
-    font-size: 20px;
+    font-size: 1.4rem;
 }
 
 /* --- Contenedor Principal con menos separación --- */
