@@ -1,12 +1,83 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8" />
-    <title>Parcel + IP</title>
-    <link rel="stylesheet" href="src-web/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subnetting Hub - Herramientas de Red</title>
+    <link rel="icon" href="img/icon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="css/index-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <a href="flsm-calculator.html">FLSM</a>
-    <a href="vlsm-calculator.html">VLSM</a>
+    <canvas id="techCanvas"></canvas>
+
+    <header>
+        <h1><i class="fas fa-network-wired"></i> Herramientas de Subnetting</h1>
+    </header>
+
+    <main>
+        <div class="cards">
+            <div class="img-container">
+                <span class="badge">ESTÁTICO</span>
+                <img src="img/network-4393368_1280.jpg" alt="FLSM Calculator" class="cards-img">
+                <div class="credits">
+                    Imagen de <a href="https://pixabay.com/es/users/bru-no-1161770/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4393368">Bruno</a> en 
+                    <a href="https://pixabay.com/es//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=4393368">Pixabay</a>
+                </div>
+            </div>
+            <div class="cards-content">
+                <div class="tech-stack">
+                    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+                </div>
+                <h2>Calculadora FLSM</h2>
+                <h3 class="subtitle">Fixed Length Subnet Mask</h3>
+                <p>Divide una red en subredes de tamaño fijo. Ideal para arquitecturas donde todos los segmentos requieren la misma cantidad de hosts.</p>
+                <a href="flsm-calculator.html">
+                    <button class="btn-netacad">Subnetting por numero de subredes</button>
+                </a>
+            </div>
+        </div>
+
+        <div class="cards">
+            <div class="img-container">
+                <span class="badge blue">DINÁMICO</span>
+                <img src="img/network-cable-499792_1280.jpg" alt="VLSM Calculator" class="cards-img">
+                <div class="credits">
+                    Imagen de <a href="https://pixabay.com/es/users/blickpixel-52945/?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=499792">Michael Schwarzenberger</a> en 
+                    <a href="https://pixabay.com/es//?utm_source=link-attribution&utm_medium=referral&utm_campaign=image&utm_content=499792">Pixabay</a>
+                </div>
+            </div>
+            <div class="cards-content">
+                <div class="tech-stack">
+                    <img src="https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript">
+                </div>
+                <h2>Calculadora VLSM</h2>
+                <h3 class="subtitle">Variable Length Subnet Mask</h3>
+                <p>Optimiza tu espacio de direccionamiento IP asignando máscaras de longitud variable según las necesidades específicas de hosts.</p>
+                <a href="vlsm-calculator.html">
+                    <button class="btn-netacad">Subnetting por numero de hosts</button>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <p><i class="fas fa-calculator"></i> Calculadoras de Subnetting</p>
+                <a href="https://github.com/EdwinSotoSHz/Subnetting-Calculator.git" target="_blank">
+                    <i class="fas fa-code"></i> Código Fuente
+                </a>
+            </div>
+            <p>© 2026 Desarrollado por 
+                <a href="https://github.com/EdwinSotoSHz" target="_blank" style="color: #aaa; text-decoration: none;">
+                    Edwin Soto <i class="fab fa-github"></i> 
+                </a>
+                | Herramientas de aprendizaje de redes
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="js/backgroud.js"></script>
 </body>
 </html>
